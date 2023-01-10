@@ -1,8 +1,9 @@
 package com.programmersbox.shared
 
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
@@ -16,15 +17,14 @@ internal fun Theme(
     appActions: AppActions,
     content: @Composable () -> Unit
 ) {
-    MaterialTheme(darkColors()) {
+    MaterialTheme(darkColorScheme()) {
         CompositionLocalProvider(
             LocalAppActions provides appActions,
-            //LocalMainScrollState provides rememberLazyListState(),
+            LocalMainScrollState provides rememberLazyListState(),
             content = content
         )
     }
 }
 
-/*
 internal val LocalMainScrollState: ProvidableCompositionLocal<LazyListState> =
-    staticCompositionLocalOf<LazyListState> { error("No Actions") }*/
+    staticCompositionLocalOf<LazyListState> { error("No Actions") }

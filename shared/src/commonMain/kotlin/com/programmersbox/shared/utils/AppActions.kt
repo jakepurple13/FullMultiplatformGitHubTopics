@@ -5,7 +5,8 @@ import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.programmersbox.shared.network.GitHubTopic
 
-public val LocalAppActions: ProvidableCompositionLocal<AppActions> =
+//TODO: IOS doesn't work with custom public CompositionLocals
+internal val LocalAppActions: ProvidableCompositionLocal<AppActions> =
     staticCompositionLocalOf<AppActions> { error("No Actions") }
 
 @Immutable

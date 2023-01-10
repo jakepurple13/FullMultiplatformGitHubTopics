@@ -1,26 +1,19 @@
 package com.programmersbox.shared.screens
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.*
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.programmersbox.shared.LocalMainScrollState
 import com.programmersbox.shared.components.IconsButton
 import com.programmersbox.shared.components.InfiniteListHandler
 import com.programmersbox.shared.components.TopicItem
@@ -29,6 +22,7 @@ import com.programmersbox.shared.utils.LocalAppActions
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun GithubTopicUI(
     page: Int,
@@ -45,8 +39,8 @@ internal fun GithubTopicUI(
 ) {
     val appActions = LocalAppActions.current
     val scope = rememberCoroutineScope()
-    //val state = LocalMainScrollState.current
-    //val showButton by remember { derivedStateOf { state.firstVisibleItemIndex > 0 } }
+    val state = LocalMainScrollState.current
+    val showButton by remember { derivedStateOf { state.firstVisibleItemIndex > 0 } }
 
     Scaffold(
         topBar = {
@@ -61,16 +55,16 @@ internal fun GithubTopicUI(
                         icon = Icons.Default.Refresh
                     )
 
-                    /*IconsButton(
+                    IconsButton(
                         onClick = appActions.onSettingsClick,
                         icon = Icons.Default.Settings
-                    )*/
-                    /*AnimatedVisibility(visible = showButton) {
+                    )
+                    AnimatedVisibility(visible = showButton) {
                         IconsButton(
                             onClick = { scope.launch { state.animateScrollToItem(0) } },
                             icon = Icons.Default.ArrowUpward
                         )
-                    }*/
+                    }
                 },
             )
         },
@@ -79,7 +73,7 @@ internal fun GithubTopicUI(
             items = topicItems,
             modifier = Modifier,
             padding = padding,
-            state = rememberLazyListState(),
+            state = state,
             onCardClick = appActions.onCardClick,
             onLoadMore = onLoadMore,
             isLoading = isLoading,
